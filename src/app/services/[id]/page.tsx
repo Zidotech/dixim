@@ -1,13 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import {
-  ArrowRight,
-  ChevronDown,
-  ChevronUp,
-  Star,
-  CheckCircle,
-} from "lucide-react";
+import { ArrowRight, Star, CheckCircle } from "lucide-react";
 import { useParams } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
@@ -46,8 +39,9 @@ export default function ServiceDetailPage() {
   const params = useParams();
   const myId = params.id;
 
+  const id = Array.isArray(myId) ? myId[0] : myId;
   //   console.log(typeof myId);
-  console.log(myId);
+  // console.log(myId);
 
   const serviceData: Record<string, ServiceData> = {
     roofing: {
@@ -782,7 +776,7 @@ export default function ServiceDetailPage() {
     },
   };
 
-  const currentService = myId ? serviceData[myId] : null;
+  const currentService = id ? serviceData[id] : null;
 
   //   if (!currentService) {
   //     return (
@@ -890,7 +884,7 @@ export default function ServiceDetailPage() {
   ];
 
   const relatedServicesData = allServices.filter((service) =>
-    currentService.relatedServices.includes(service.id)
+    currentService?.relatedServices.includes(service.id)
   );
 
   return (
@@ -898,8 +892,8 @@ export default function ServiceDetailPage() {
       {/* Hero Section */}
       <section className="relative h-96 lg:h-[500px] overflow-hidden">
         <Image
-          src={currentService.heroImage}
-          alt={`${currentService.title} hero`}
+          src={currentService!.heroImage}
+          alt={`${currentService?.title} hero`}
           className="w-full h-full object-cover"
           width={100}
           height={100}
@@ -908,7 +902,7 @@ export default function ServiceDetailPage() {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white max-w-4xl mx-auto px-4">
             <h1 className="text-5xl lg:text-6xl font-bold mb-6">
-              {currentService.title}
+              {currentService?.title}
             </h1>
             <p className="text-xl lg:text-2xl">
               Premium Quality • Expert Craftsmanship • 15+ Years Experience
@@ -925,10 +919,10 @@ export default function ServiceDetailPage() {
               Our Expertise
             </h2>
             <p className="text-xl text-gray-700 leading-relaxed mb-12">
-              {currentService.overview}
+              {currentService?.overview}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {currentService.subServices.map((subService, index) => (
+              {currentService?.subServices.map((subService, index) => (
                 <Card
                   key={index}
                   className="shadow-lg border-0 hover:shadow-xl transition-shadow duration-300"
@@ -954,12 +948,12 @@ export default function ServiceDetailPage() {
               Project Gallery
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              See our completed {currentService.title.toLowerCase()} projects
+              See our completed {currentService?.title.toLowerCase()} projects
               showcasing quality craftsmanship and attention to detail.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {currentService.galleryImages.map((image, index) => (
+            {currentService?.galleryImages.map((image, index) => (
               <div
                 key={index}
                 className="group relative bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
@@ -995,11 +989,11 @@ export default function ServiceDetailPage() {
               </h2>
               <p className="text-xl text-gray-600">
                 Get answers to common questions about our{" "}
-                {currentService.title.toLowerCase()} services.
+                {currentService?.title.toLowerCase()} services.
               </p>
             </div>
             <Accordion type="single" collapsible className="space-y-4">
-              {currentService.faqs.map((faq, index) => (
+              {currentService?.faqs.map((faq, index) => (
                 <AccordionItem
                   key={index}
                   value={`item-${index}`}
@@ -1034,7 +1028,7 @@ export default function ServiceDetailPage() {
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {currentService.testimonials.map((testimonial, index) => (
+            {currentService?.testimonials.map((testimonial, index) => (
               <Card key={index} className="shadow-lg border-0">
                 <CardContent className="p-8">
                   <div className="flex justify-center mb-4">
@@ -1065,12 +1059,12 @@ export default function ServiceDetailPage() {
       <section className="py-20 wine-gradient text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
-            Ready to start your {currentService.title} project with Dixim Roof?
+            Ready to start your {currentService?.title} project with Dixim Roof?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Get a free consultation and detailed quote for your{" "}
-            {currentService.title.toLowerCase()} needs. Our experts are ready to
-            bring your vision to life with quality materials and professional
+            {currentService?.title.toLowerCase()} needs. Our experts are ready
+            to bring your vision to life with quality materials and professional
             craftsmanship.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -1104,7 +1098,7 @@ export default function ServiceDetailPage() {
               </h2>
               <p className="text-xl text-gray-600">
                 Explore other services that complement your{" "}
-                {currentService.title.toLowerCase()} project
+                {currentService?.title.toLowerCase()} project
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">

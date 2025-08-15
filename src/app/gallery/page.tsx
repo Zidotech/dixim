@@ -22,6 +22,7 @@ export default function GalleryPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showBefore, setShowBefore] = useState(false);
 
   const route = useRouter();

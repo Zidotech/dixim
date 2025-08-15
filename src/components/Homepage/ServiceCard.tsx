@@ -21,7 +21,6 @@ export function ServiceCard({
   imageUrl,
   hoverImageUrl,
   variant,
-  onNavigate,
   serviceId,
 }: ServiceCardProps) {
   const route = useRouter();
